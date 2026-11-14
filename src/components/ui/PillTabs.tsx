@@ -11,7 +11,7 @@ export interface PillTab<T extends string> {
 interface PillTabsProps<T extends string> {
   tabs: PillTab<T>[]
   value: T
-  onChange: (value: T) => void
+  onChange: (value: NoInfer<T>) => void
   /** id do painel controlado pelas abas */
   panelId: string
   'aria-label': string

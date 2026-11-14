@@ -11,7 +11,7 @@ export interface SegmentOption<T extends string> {
 interface SegmentedControlProps<T extends string> {
   options: SegmentOption<T>[]
   value: T
-  onChange: (value: T) => void
+  onChange: (value: NoInfer<T>) => void
   'aria-label': string
   className?: string
 }

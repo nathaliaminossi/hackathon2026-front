@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef, useState, type FormEvent } from 'react'
+import { Fragment, useEffect, useRef, useState, type SubmitEvent } from 'react'
 import { Building2, CheckCheck, Lock, Paperclip, SendHorizontal } from 'lucide-react'
 import { ScreenHeader } from '@/components/ui'
 import { clinica } from '@/data/especialidades'
@@ -24,7 +24,7 @@ export default function Chat() {
     primeiraVez.current = false
   }, [mensagens.length])
 
-  const enviar = (e: FormEvent) => {
+  const enviar = (e: SubmitEvent) => {
     e.preventDefault()
     const conteudo = texto.trim()
     if (!conteudo) return

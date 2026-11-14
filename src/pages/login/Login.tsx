@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useState, type SubmitEvent } from 'react'
 import { ArrowRight, Eye, EyeOff } from 'lucide-react'
 import { Navigate, useLocation, useNavigate, type Location } from 'react-router'
 import { Button, Logo, PhoneFrame } from '@/components/ui'
@@ -22,7 +22,7 @@ export default function Login() {
 
   if (user) return <Navigate to={destino} replace />
 
-  const entrar = async (e: FormEvent) => {
+  const entrar = async (e: SubmitEvent) => {
     e.preventDefault()
     setErro(null)
     setEnviando(true)
