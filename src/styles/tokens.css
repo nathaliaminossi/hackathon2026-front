@@ -1,0 +1,61 @@
+/* Design tokens do Liva (Tailwind v4: o @theme substitui o antigo tailwind.config.js).
+   Cada variável vira classe: --color-primary-900 → bg-primary-900, text-primary-900, border-primary-900...
+
+   Contraste (WCAG AA, texto pequeno ≥ 4.5:1):
+   - branco sobre primary-900 ........... 13.2:1
+   - primary-900 sobre primary-100 ...... 10.9:1
+   - ink-secondary sobre bg/surface ..... 4.8:1
+   - accent-700 sobre accent-50/branco .. 4.8 / 5.3:1
+   accent-500 (3.1:1) e ink-muted (2.6:1) NÃO passam para texto pequeno:
+   use-os em ícones, bordas, pontos e estados desabilitados. Para texto verde, use accent-700. */
+@theme {
+  /* Marca: roxo */
+  --color-primary-900: #4b0f6e; /* botão principal, card destaque, títulos, selecionado */
+  --color-primary-700: #6a2c8e; /* hover/pressed, ícones */
+  --color-primary-100: #eee6f6; /* lavanda: aba ativa, badges de passo, hoje, banner */
+  --color-primary-50: #f6f2fa; /* fundos sutis, segmented control */
+
+  /* Acento: verde-menta */
+  --color-accent-700: #0b7a66; /* texto de status positivo (versão AA do accent-500) */
+  --color-accent-500: #12a58a; /* ícones e pontos de status positivo */
+  --color-accent-300: #5fd6c0; /* borda de seleção, anel de foco */
+  --color-accent-50: #e6f7f2; /* fundo de "cuidado do dia", horário selecionado, badge */
+
+  /* Superfícies */
+  --color-bg: #f7f6f9;
+  --color-surface: #ffffff;
+  --color-border: #e7e3ec;
+
+  /* Texto (ink = tinta) */
+  --color-ink: #2a1838; /* text-primary */
+  --color-ink-secondary: #716a7c; /* text-secondary (levemente mais escuro que #7A7285 para AA sobre bg) */
+  --color-ink-muted: #a59fae; /* text-muted: placeholders, desabilitado, decoração */
+
+  /* Status extras (usados pelo selo de status das consultas) */
+  --color-warning: #a15c07;
+  --color-warning-50: #fdf3e4;
+  --color-danger: #b42318;
+  --color-danger-50: #fdecea;
+
+  /* Tipografia */
+  --font-sans: 'Inter Variable', 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+
+  /* Raios */
+  --radius-card: 16px;
+  --radius-control: 12px;
+  --radius-chip: 8px;
+
+  /* Movimento: 150–200ms ease-out */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --default-transition-duration: 180ms;
+  --default-transition-timing-function: var(--ease-out);
+  --animate-screen-in: screen-in 200ms var(--ease-out);
+
+  @keyframes screen-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+  }
+}

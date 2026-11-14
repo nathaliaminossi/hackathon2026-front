@@ -1,0 +1,40 @@
+@import 'tailwindcss';
+@import './tokens.css';
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-bg font-sans text-ink antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Anel de foco para navegação por teclado (accent-300) */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent-300;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0ms !important;
+      animation-duration: 0ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Esconde a barra de rolagem mantendo a rolagem (seletor de dias, abas) */
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
