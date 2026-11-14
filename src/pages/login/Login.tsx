@@ -1,8 +1,9 @@
-import { useState, type SubmitEvent } from 'react'
+
+import { useState, type FormEvent } from 'react'
 import { ArrowRight, Eye, EyeOff } from 'lucide-react'
-import { Navigate, useLocation, useNavigate, type Location } from 'react-router'
+import { Navigate, useLocation, useNavigate } from 'react-router'
+import type { Location } from 'react-router'
 import { Button, PhoneFrame } from '@/components/ui'
-// Import direto do hook (exceção à regra do index.ts) para evitar falso erro do editor.
 import { useAuth } from '@/features/auth/hooks/useAuth'
 import { formatCpf } from '@/utils/cpf'
 
@@ -13,7 +14,9 @@ export default function Login() {
   const { user, login } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
-  const destino = (location.state as { from?: Location } | null)?.from?.pathname ?? '/inicio'
+
+  const destino =
+    (location.state as { from?: Location } | null)?.from?.pathname ?? '/inicio'
 
   const [cpf, setCpf] = useState('')
   const [senha, setSenha] = useState('')
@@ -23,15 +26,17 @@ export default function Login() {
 
   if (user) return <Navigate to={destino} replace />
 
-  const entrar = async (e: SubmitEvent) => {
+  const entrar = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setErro(null)
     setEnviando(true)
+
     try {
       await login({ cpf, password: senha })
       navigate(destino, { replace: true })
     } catch (err) {
       setErro(err instanceof Error ? err.message : 'Não foi possível entrar.')
+    } finally {
       setEnviando(false)
     }
   }
@@ -43,19 +48,29 @@ export default function Login() {
           <span className="text-[44px] leading-none font-extrabold tracking-[-0.04em] text-primary-900 select-none">
             liva
           </span>
-          <p className="text-[13px] text-ink-secondary">Seu cuidado, mais perto.</p>
+          <p className="text-[13px] text-ink-secondary">
+            Seu cuidado, mais perto.
+          </p>
         </div>
 
         <div className="mt-12">
-          <h1 className="text-[26px] leading-tight font-bold text-primary-900">Que bom te ver 💜</h1>
-          <p className="mt-1 text-[13px] text-ink-secondary">Entre para ver suas consultas e avisos.</p>
+          <h1 className="text-[26px] leading-tight font-bold text-primary-900">
+            Que bom te ver 💜
+          </h1>
+          <p className="mt-1 text-[13px] text-ink-secondary">
+            Entre para ver suas consultas e avisos.
+          </p>
         </div>
 
         <form onSubmit={entrar} noValidate className="mt-8 space-y-4">
           <div className="space-y-1.5">
-            <label htmlFor="cpf" className="text-[11px] font-semibold tracking-[0.08em] text-ink-secondary uppercase">
+            <label
+              htmlFor="cpf"
+              className="text-[11px] font-semibold tracking-[0.08em] text-ink-secondary uppercase"
+            >
               CPF
             </label>
+
             <input
               id="cpf"
               inputMode="numeric"
@@ -70,9 +85,13 @@ export default function Login() {
           </div>
 
           <div className="space-y-1.5">
-            <label htmlFor="senha" className="text-[11px] font-semibold tracking-[0.08em] text-ink-secondary uppercase">
+            <label
+              htmlFor="senha"
+              className="text-[11px] font-semibold tracking-[0.08em] text-ink-secondary uppercase"
+            >
               Senha
             </label>
+
             <div className="relative">
               <input
                 id="senha"
@@ -85,6 +104,7 @@ export default function Login() {
                 aria-describedby={erro ? 'login-erro' : undefined}
                 className={`${inputClass} pr-12`}
               />
+
               <button
                 type="button"
                 onClick={() => setMostrarSenha((v) => !v)}
@@ -102,19 +122,38 @@ export default function Login() {
           </div>
 
           {erro && (
-            <p id="login-erro" role="alert" className="text-[13px] font-medium text-danger">
+            <p
+              id="login-erro"
+              role="alert"
+              className="text-[13px] font-medium text-danger"
+            >
               {erro}
             </p>
           )}
 
-          <Button type="submit" fullWidth isLoading={enviando} className="justify-between">
+          <Button
+            type="submit"
+            fullWidth
+            isLoading={enviando}
+            className="justify-between"
+          >
             <span>Entrar</span>
-            {!enviando && <ArrowRight aria-hidden="true" className="size-5" strokeWidth={2} />}
+            {!enviando && (
+              <ArrowRight
+                aria-hidden="true"
+                className="size-5"
+                strokeWidth={2}
+              />
+            )}
           </Button>
         </form>
 
         <p className="mt-auto pt-8 text-center text-xs text-ink-secondary">
-          Demonstração: CPF <strong className="font-semibold text-ink">123.456.789-00</strong> · senha{' '}
+          Demonstração: CPF{' '}
+          <strong className="font-semibold text-ink">
+            123.456.789-00
+          </strong>{' '}
+          · senha{' '}
           <strong className="font-semibold text-ink">liva123</strong>
         </p>
       </main>
