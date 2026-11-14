@@ -1,8 +1,9 @@
 import { useState, type SubmitEvent } from 'react'
 import { ArrowRight, Eye, EyeOff } from 'lucide-react'
 import { Navigate, useLocation, useNavigate, type Location } from 'react-router'
-import { Button, Logo, PhoneFrame } from '@/components/ui'
-import { useAuth } from '@/features/auth'
+import { Button, PhoneFrame } from '@/components/ui'
+// Import direto do hook (exceção à regra do index.ts) para evitar falso erro do editor.
+import { useAuth } from '@/features/auth/hooks/useAuth'
 import { formatCpf } from '@/utils/cpf'
 
 const inputClass =
@@ -39,7 +40,9 @@ export default function Login() {
     <PhoneFrame>
       <main className="flex flex-1 flex-col overflow-y-auto px-5 pt-16 pb-8">
         <div className="space-y-2">
-          <Logo size="lg" />
+          <span className="text-[44px] leading-none font-extrabold tracking-[-0.04em] text-primary-900 select-none">
+            liva
+          </span>
           <p className="text-[13px] text-ink-secondary">Seu cuidado, mais perto.</p>
         </div>
 

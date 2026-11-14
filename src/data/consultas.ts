@@ -1,6 +1,7 @@
 import type { Consulta } from '@/types'
 import { at } from '@/utils/date'
-import { clinica } from './especialidades'
+
+const clinica = { nome: 'Clínica Liva Centro' }
 
 // Datas relativas a hoje, para o protótipo sempre parecer "atual".
 export const consultasIniciais: Consulta[] = [

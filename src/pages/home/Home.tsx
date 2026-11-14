@@ -1,8 +1,6 @@
 import {
-  ArrowRight,
   CalendarDays,
   CalendarPlus,
-  ChevronRight,
   Clock,
   Heart,
   MapPin,
@@ -10,15 +8,14 @@ import {
   Video,
   type LucideIcon,
 } from 'lucide-react'
-import { Link } from 'react-router'
-import { Card, Eyebrow, Logo, SectionHeader } from '@/components/ui'
+import { Badge, Card, Eyebrow, Logo, SectionHeader } from '@/components/ui'
 import { AppointmentStatusBadge, useProximaConsulta } from '@/features/agendamentos'
 import { useAuth } from '@/features/auth'
-import { formatLongDate, formatTime, toISODate } from '@/utils/date'
+import { formatLongDate, formatTime } from '@/utils/date'
 
-const atalhos: { to: string; label: string; descricao: string; icon: LucideIcon }[] = [
-  { to: '/agendar', label: 'Agendar consulta', descricao: 'Escolha dia e horário', icon: CalendarPlus },
-  { to: '/chat', label: 'Falar com a clínica', descricao: 'Tire suas dúvidas', icon: MessageCircle },
+const atalhos: { label: string; descricao: string; icon: LucideIcon }[] = [
+  { label: 'Agendar consulta', descricao: 'Escolha dia e horário', icon: CalendarPlus },
+  { label: 'Falar com a clínica', descricao: 'Tire suas dúvidas', icon: MessageCircle },
 ]
 
 export default function Home() {
@@ -77,22 +74,11 @@ export default function Home() {
               {proxima.modalidade === 'teleconsulta' ? 'Online' : 'Presencial'}
             </li>
           </ul>
-
-          <Link
-            to={`/calendario?dia=${toISODate(proxima.inicio)}`}
-            className="flex h-12 items-center justify-between rounded-control bg-white/12 px-4 text-sm font-semibold transition-colors ease-out hover:bg-white/20 active:bg-white/25"
-          >
-            Ver minha consulta
-            <ArrowRight aria-hidden="true" className="size-4" strokeWidth={2} />
-          </Link>
         </Card>
       ) : (
         <Card className="space-y-1">
           <Eyebrow className="text-ink-secondary">Sua próxima consulta</Eyebrow>
           <p className="text-sm text-ink">Nenhuma consulta marcada por enquanto.</p>
-          <Link to="/agendar" className="inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-accent-700 hover:underline">
-            Agendar agora <ArrowRight aria-hidden="true" className="size-4" />
-          </Link>
         </Card>
       )}
 
@@ -100,20 +86,21 @@ export default function Home() {
       <section aria-labelledby="atalhos-titulo">
         <SectionHeader id="atalhos-titulo" title="O que você precisa?" />
         <ul className="grid grid-cols-2 gap-3">
-          {atalhos.map(({ to, label, descricao, icon: Icon }) => (
-            <li key={to}>
-              <Link
-                to={to}
-                className="flex h-full flex-col gap-3 rounded-card border border-border bg-surface p-4 transition-colors ease-out hover:border-primary-700/30 hover:bg-primary-50 active:bg-primary-100"
-              >
+          {atalhos.map(({ label, descricao, icon: Icon }) => (
+            <li
+              key={label}
+              className="flex h-full flex-col gap-3 rounded-card border border-border bg-surface p-4"
+            >
+              <div className="flex items-start justify-between gap-2">
                 <span className="grid size-10 place-items-center rounded-control bg-primary-100 text-primary-700">
                   <Icon aria-hidden="true" className="size-5" strokeWidth={1.75} />
                 </span>
-                <span>
-                  <span className="block text-sm font-semibold text-primary-900">{label}</span>
-                  <span className="mt-0.5 block text-xs text-ink-secondary">{descricao}</span>
-                </span>
-              </Link>
+                <Badge tone="neutral">Em breve</Badge>
+              </div>
+              <span>
+                <span className="block text-sm font-semibold text-primary-900">{label}</span>
+                <span className="mt-0.5 block text-xs text-ink-secondary">{descricao}</span>
+              </span>
             </li>
           ))}
         </ul>
@@ -129,12 +116,6 @@ export default function Home() {
           Faça uma pausa de 5 minutos, beba um copo de água e respire fundo. Pequenos gestos também
           cuidam de você.
         </p>
-        <Link
-          to="/avisos"
-          className="mt-2 inline-flex min-h-11 items-center gap-1 text-[13px] font-semibold text-accent-700 hover:underline"
-        >
-          Ver lembretes <ChevronRight aria-hidden="true" className="size-4" />
-        </Link>
       </Card>
     </div>
   )
